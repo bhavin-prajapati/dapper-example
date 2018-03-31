@@ -1,0 +1,59 @@
+﻿@using System.Web.Optimization
+@using DapperExample.Models;
+@model DapperExample.Models.Ingredient
+
+@{
+    ViewBag.Title = "Cupcake Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Ingredient", FormMethod.Post, new { @class = "form-horizontal well" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Ok!</strong> @ViewBag.Message
+        </div>
+    }
+
+    @Html.ValidationSummary(true)
+    int id = -1;
+    if (Url.RequestContext.RouteData.Values["id"] != null)
+    {
+        id = int.Parse((string)Url.RequestContext.RouteData.Values["id"]);
+        Model.CupcakeID = id;
+    }
+    <fieldset>
+        <legend>Please enter ingredients</legend>
+        <div class="container">
+
+            @Html.HiddenFor(m => m.CupcakeID)
+            @Html.EditorFor(m => m.Data)
+
+        </div>
+        <input class="btn btn-primary" type="submit" value="Add" />
+
+    </fieldset>
+    
+    <br />
+    if(id != -1)
+    {
+        @Html.Partial("/Views/Ingredient/_IngredientTable.cshtml", new IngredientViewModel(id))
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/val")
+    @Scripts.Render("~/Scripts/md")
+    <script>
+        (function ($) {
+            setTimeout(function () {
+                $("div.alert").alert('close');
+            }, 3000);
+        })(jQuery);
+
+    </script>
+}

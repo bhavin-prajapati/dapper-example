@@ -1,0 +1,34 @@
+﻿@model DapperExample.Models.Ingredient
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Ingredient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CupcakeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CupcakeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
+        </div>
+    }
+</div>

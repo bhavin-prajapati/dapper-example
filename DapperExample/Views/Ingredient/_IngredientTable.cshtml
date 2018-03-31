@@ -1,0 +1,25 @@
+﻿@model DapperExample.Models.IngredientViewModel
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Data
+        </th>
+        <th>
+        </th>
+    </tr>
+    @{
+        var cupcakes = Model.GetIngredients();
+        foreach (var item in cupcakes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Ingredient", new { id = item.CupcakeID, ingredientID = item.IngredientID }, null)
+                </td>
+            </tr>
+        }
+    }
+</table>

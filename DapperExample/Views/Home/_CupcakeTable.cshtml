@@ -1,0 +1,51 @@
+﻿@model DapperExample.Models.CupcakeViewModel
+
+    <table class="table table-striped">
+    <tr>
+        <th>
+            CupcakeID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Created
+        </th>
+        <th>
+            LastModified
+        </th>
+        <th>
+        </th>
+    </tr>
+    @{
+        var cupcakes = Model.GetCupcakes();
+        foreach (var item in cupcakes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CupcakeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModified)
+                </td>
+                <td>
+                    @Html.ActionLink("Ingredients", "Index", "Ingredient", new { id = item.CupcakeID }, null) |
+                    @Html.ActionLink("Edit", "Edit", "Cupcake", new { id = item.CupcakeID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Cupcake", new { id = item.CupcakeID }, null)
+                </td>
+            </tr>
+        }
+    }
+</table>
